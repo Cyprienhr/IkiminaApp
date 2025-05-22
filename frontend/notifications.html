@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikimina - Notifications</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">Ikimina</h1>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="/dashboard">
+                            <i class="fas fa-home"></i>
+                            <span class="translatable" data-key="dashboard">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/groups">
+                            <i class="fas fa-users"></i>
+                            <span class="translatable" data-key="groups">Groups</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/payments">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span class="translatable" data-key="payments">Payments</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="notifications.html">
+                            <i class="fas fa-bell"></i>
+                            <span class="translatable" data-key="notifications">Notifications</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            <span class="translatable" data-key="profile">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="translatable" data-key="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 class="page-title translatable" data-key="notifications">Notifications</h2>
+                </div>
+                
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <select id="languageSelector">
+                            <option value="en">English</option>
+                            <option value="rw">Kinyarwanda</option>
+                        </select>
+                    </div>
+                    
+                    <div class="user-profile">
+                        <span class="user-name" id="userName">User Name</span>
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="translatable" data-key="all_notifications">All Notifications</h3>
+                        <div class="card-actions">
+                            <button id="markAllReadBtn" class="btn btn-sm btn-outline">
+                                <i class="fas fa-check-double"></i>
+                                <span class="translatable" data-key="mark_all_read">Mark All as Read</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div id="notificationsContainer" class="notifications-list">
+                            <!-- Notifications will be loaded here -->
+                            <div class="empty-state" id="emptyNotifications" style="display: none;">
+                                <i class="fas fa-bell-slash"></i>
+                                <p class="translatable" data-key="no_notifications">You have no notifications at this time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; 2023 Ikimina. <span class="translatable" data-key="all_rights_reserved">All rights reserved.</span></p>
+            </footer>
+        </main>
+    </div>
+    
+    <!-- Notification Template (Hidden) -->
+    <template id="notificationTemplate">
+        <div class="notification-item">
+            <div class="notification-icon">
+                <i class="fas fa-circle"></i>
+            </div>
+            <div class="notification-content">
+                <div class="notification-message"></div>
+                <div class="notification-time"></div>
+            </div>
+            <div class="notification-actions">
+                <button class="mark-read-btn">
+                    <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
+    </template>
+    
+    <!-- JavaScript -->
+    <script src="/js/translations.js"></script>
+    <script src="/js/language.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language
+            initLanguage();
+            
+            // Sidebar toggle functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mobileToggle = document.getElementById('mobileToggle');
+            const appContainer = document.querySelector('.app-container');
+            
+            function toggleSidebar() {
+                appContainer.classList.toggle('sidebar-collapsed');
+            }
+            
+            sidebarToggle.addEventListener('click', toggleSidebar);
+            mobileToggle.addEventListener('click', toggleSidebar);
+            
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                // Clear local storage
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                
+                // Redirect to login page
+                window.location.href = '/login';
+            });
+            
+            // Load user info
+            loadUserInfo();
+            
+            // Load notifications
+            loadNotifications();
+            
+            // Mark all as read button
+            document.getElementById('markAllReadBtn').addEventListener('click', markAllAsRead);
+        });
+        
+        function loadUserInfo() {
+            // Get user from localStorage
+            const userJson = localStorage.getItem('user');
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                document.getElementById('userName').textContent = user.fullName;
+            } else {
+                // Redirect to login if user not found
+                window.location.href = '/login';
+            }
+        }
+        
+        function loadNotifications() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+            
+            fetch('/api/notifications', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch notifications');
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayNotifications(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Show error message
+                const container = document.getElementById('notificationsContainer');
+                container.innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+            });
+        }
+        
+        function displayNotifications(notifications) {
+            const container = document.getElementById('notificationsContainer');
+            const emptyState = document.getElementById('emptyNotifications');
+            const template = document.getElementById('notificationTemplate');
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            if (!notifications || notifications.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            notifications.forEach(notification => {
+                const clone = template.content.cloneNode(true);
+                
+                // Set notification content
+                const messageEl = clone.querySelector('.notification-message');
+                const timeEl = clone.querySelector('.notification-time');
+                const iconEl = clone.querySelector('.notification-icon i');
+                const item = clone.querySelector('.notification-item');
+                const markReadBtn = clone.querySelector('.mark-read-btn');
+                
+                messageEl.textContent = notification.message;
+                timeEl.textContent = formatDate(notification.createdAt);
+                
+                // Set read/unread status
+                if (notification.read) {
+                    item.classList.add('read');
+                    iconEl.classList.remove('fa-circle');
+                    iconEl.classList.add('fa-check-circle');
+                }
+                
+                // Set notification ID
+                item.dataset.id = notification.id;
+                
+                // Add event listener to mark as read button
+                markReadBtn.addEventListener('click', function() {
+                    markAsRead(notification.id, item);
+                });
+                
+                container.appendChild(clone);
+            });
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffSec = Math.floor(diffMs / 1000);
+            const diffMin = Math.floor(diffSec / 60);
+            const diffHour = Math.floor(diffMin / 60);
+            const diffDay = Math.floor(diffHour / 24);
+            
+            if (diffDay > 0) {
+                return `${diffDay} ${diffDay === 1 ? getTranslation('day_ago') : getTranslation('days_ago')}`;
+            } else if (diffHour > 0) {
+                return `${diffHour} ${diffHour === 1 ? getTranslation('hour_ago') : getTranslation('hours_ago')}`;
+            } else if (diffMin > 0) {
+                return `${diffMin} ${diffMin === 1 ? getTranslation('minute_ago') : getTranslation('minutes_ago')}`;
+            } else {
+                return getTranslation('just_now');
+            }
+        }
+        
+        function markAsRead(notificationId, element) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+            
+            fetch(`/api/notifications/${notificationId}/read`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to mark notification as read');
+                }
+                return response.json();
+            })
+            .then(() => {
+                // Update UI
+                element.classList.add('read');
+                const iconEl = element.querySelector('.notification-icon i');
+                iconEl.classList.remove('fa-circle');
+                iconEl.classList.add('fa-check-circle');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Show error message
+                alert(error.message);
+            });
+        }
+        
+        function markAllAsRead() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+            
+            fetch('/api/notifications/read-all', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to mark all notifications as read');
+                }
+                return response.json();
+            })
+            .then(() => {
+                // Update UI for all notifications
+                const items = document.querySelectorAll('.notification-item:not(.read)');
+                items.forEach(item => {
+                    item.classList.add('read');
+                    const iconEl = item.querySelector('.notification-icon i');
+                    iconEl.classList.remove('fa-circle');
+                    iconEl.classList.add('fa-check-circle');
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Show error message
+                alert(error.message);
+            });
+        }
+    </script>
+</body>
+</html>

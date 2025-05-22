@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title-i18n" content="dashboard">
+    <title>Dashboard - Ikimina Connect</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" type="image/png">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-handshake"></i>
+                    <span data-i18n="appName">Ikimina Connect</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-i18n="dashboard">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="groups.html">
+                            <i class="fas fa-users"></i>
+                            <span data-i18n="groups">Groups</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="payments.html">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span data-i18n="payments">Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="notifications.html">
+                            <i class="fas fa-bell"></i>
+                            <span data-i18n="notifications">Notifications</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            <span data-i18n="profile">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="page-title" data-i18n="dashboard">Dashboard</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <select id="language-switcher">
+                            <option value="en" data-i18n="english">English</option>
+                            <option value="rw" data-i18n="kinyarwanda">Kinyarwanda</option>
+                        </select>
+                    </div>
+                    <div class="user-profile">
+                        <span id="user-name">User Name</span>
+                        <div class="avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Welcome Card -->
+                <div class="card welcome-card">
+                    <div class="card-body">
+                        <h2><span data-i18n="welcome">Welcome</span>, <span id="welcome-name">User</span>!</h2>
+                        <p data-i18n="dashboardWelcomeMessage">Welcome to your Ikimina Connect dashboard. Here you can manage your savings groups and track your contributions.</p>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 data-i18n="myGroups">My Groups</h3>
+                                <p class="stat-value" id="groups-count">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 data-i18n="totalContributions">Total Contributions</h3>
+                                <p class="stat-value" id="contributions-amount">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 data-i18n="upcomingPayments">Upcoming Payments</h3>
+                                <p class="stat-value" id="upcoming-payments">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 data-i18n="recentActivity">Recent Activity</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="activity-list" class="activity-list">
+                            <!-- Activity items will be loaded dynamically -->
+                            <div class="empty-state">
+                                <i class="fas fa-info-circle"></i>
+                                <p data-i18n="noRecentActivity">No recent activity to display</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/translations.js"></script>
+    <script src="js/language.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (!token) {
+                // Redirect to login if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Set user name
+            const userNameElement = document.getElementById('user-name');
+            const welcomeNameElement = document.getElementById('welcome-name');
+            if (user.fullName) {
+                userNameElement.textContent = user.fullName;
+                welcomeNameElement.textContent = user.fullName.split(' ')[0]; // First name only
+            }
+            
+            // Toggle sidebar on mobile
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const dashboardContainer = document.querySelector('.dashboard-container');
+            
+            sidebarToggle.addEventListener('click', () => {
+                dashboardContainer.classList.toggle('sidebar-collapsed');
+            });
+            
+            // Logout functionality
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    // Call logout API if needed
+                    // const response = await fetch('/api/auth/logout', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Authorization': `Bearer ${token}`
+                    //     }
+                    // });
+                    
+                    // Clear local storage
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    
+                    // Redirect to login
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    console.error('Logout error:', error);
+                }
+            });
+            
+            // Load dashboard data
+            loadDashboardData();
+        });
+        
+        async function loadDashboardData() {
+            const token = localStorage.getItem('token');
+            
+            try {
+                // Fetch dashboard data
+                const response = await fetch('/api/dashboard', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Update stats
+                    document.getElementById('groups-count').textContent = data.groupsCount || 0;
+                    document.getElementById('contributions-amount').textContent = 
+                        new Intl.NumberFormat('en-US', { style: 'currency', currency: 'RWF' })
+                            .format(data.totalContributions || 0);
+                    document.getElementById('upcoming-payments').textContent = data.upcomingPayments || 0;
+                    
+                    // Update activity list
+                    const activityList = document.getElementById('activity-list');
+                    
+                    if (data.recentActivities && data.recentActivities.length > 0) {
+                        // Clear empty state
+                        activityList.innerHTML = '';
+                        
+                        // Add activity items
+                        data.recentActivities.forEach(activity => {
+                            const activityItem = document.createElement('div');
+                            activityItem.className = 'activity-item';
+                            
+                            const activityDate = new Date(activity.timestamp);
+                            const formattedDate = activityDate.toLocaleDateString();
+                            const formattedTime = activityDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            
+                            activityItem.innerHTML = `
+                                <div class="activity-icon">
+                                    <i class="fas ${getActivityIcon(activity.type)}"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p class="activity-text">${activity.description}</p>
+                                    <p class="activity-time">${formattedDate} ${formattedTime}</p>
+                                </div>
+                            `;
+                            
+                            activityList.appendChild(activityItem);
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+        
+        function getActivityIcon(activityType) {
+            // Return appropriate icon based on activity type
+            switch (activityType) {
+                case 'GROUP_JOINED':
+                case 'GROUP_CREATED':
+                    return 'fa-users';
+                case 'PAYMENT_MADE':
+                case 'PAYMENT_RECEIVED':
+                    return 'fa-money-bill-wave';
+                case 'PROFILE_UPDATED':
+                    return 'fa-user-edit';
+                default:
+                    return 'fa-bell';
+            }
+        }
+    </script>
+</body>
+</html>

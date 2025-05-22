@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title-i18n" content="login">
+    <title>Login - Ikimina Connect</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" type="image/png">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Language Selector -->
+        <div class="language-toggle">
+            <div class="language-selector">
+                <select id="language-switcher">
+                    <option value="en" data-i18n="english">English</option>
+                    <option value="rw" data-i18n="kinyarwanda">Kinyarwanda</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Login Card -->
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-handshake"></i> <span data-i18n="appName">Ikimina Connect</span>
+                </div>
+                <div class="auth-subtitle" data-i18n="login">Login</div>
+            </div>
+            
+            <div class="auth-body">
+                <!-- Alert for errors (hidden by default) -->
+                <div id="login-alert" class="alert alert-error hidden">
+                    <span id="error-message"></span>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="phoneNumber" data-i18n="phoneNumber">Phone Number</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" data-i18n-placeholder="phoneNumber" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" data-i18n="password">Password</label>
+                        <input type="password" id="password" name="password" data-i18n-placeholder="password" required>
+                    </div>
+                    
+                    <div class="form-group text-right">
+                        <a href="#" class="auth-link" data-i18n="forgotPassword">Forgot Password?</a>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary w-100" data-i18n="login">Login</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="auth-footer">
+                <span data-i18n="noAccount">Don't have an account?</span> 
+                <a href="register.html" class="auth-link" data-i18n="registerHere">Register here</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/translations.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+/**
+ * Notifications page styles for Ikimina application
+ * Contains styles for notification items, read/unread states, and notification actions
+ */
+
+/* Notifications List */
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* Notification Item */
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    background-color: rgba(var(--primary-rgb), 0.05);
+    border-left: 3px solid var(--primary-color);
+    transition: all var(--transition-speed) ease;
+}
+
+.notification-item.read {
+    background-color: transparent;
+    border-left-color: var(--border-color);
+    opacity: 0.7;
+}
+
+.notification-icon {
+    margin-right: var(--spacing-md);
+    color: var(--primary-color);
+    font-size: var(--font-size-sm);
+    padding-top: 3px;
+}
+
+.notification-item.read .notification-icon {
+    color: var(--success-color);
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-message {
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.notification-item.read .notification-message {
+    font-weight: 400;
+}
+
+.notification-time {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.notification-actions {
+    margin-left: var(--spacing-sm);
+}
+
+.mark-read-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-speed) ease;
+}
+
+.mark-read-btn:hover {
+    background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+.notification-item.read .mark-read-btn {
+    display: none;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Card Actions */
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .notification-item {
+        flex-direction: column;
+    }
+    
+    .notification-icon {
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .notification-actions {
+        align-self: flex-end;
+        margin-top: var(--spacing-xs);
+    }
+}

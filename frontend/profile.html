@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title-i18n" content="profile">
+    <title>Profile - Ikimina Connect</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" type="image/png">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-handshake"></i>
+                    <span data-i18n="appName">Ikimina Connect</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="/dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-i18n="dashboard">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/groups">
+                            <i class="fas fa-users"></i>
+                            <span data-i18n="groups">Groups</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/payments">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span data-i18n="payments">Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="notifications.html">
+                            <i class="fas fa-bell"></i>
+                            <span data-i18n="notifications">Notifications</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            <span data-i18n="profile">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="page-title" data-i18n="profile">Profile</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <select id="language-switcher">
+                            <option value="en" data-i18n="english">English</option>
+                            <option value="rw" data-i18n="kinyarwanda">Kinyarwanda</option>
+                        </select>
+                    </div>
+                    <div class="user-profile">
+                        <span id="user-name">User Name</span>
+                        <div class="avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <div class="row">
+                    <!-- Profile Information -->
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 data-i18n="profileInformation">Profile Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <!-- Alert for success/errors (hidden by default) -->
+                                <div id="profile-alert" class="alert hidden">
+                                    <span id="profile-message"></span>
+                                </div>
+                                
+                                <form id="profile-form">
+                                    <div class="form-group">
+                                        <label for="fullName" data-i18n="fullName">Full Name</label>
+                                        <input type="text" id="fullName" name="fullName" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="phoneNumber" data-i18n="phoneNumber">Phone Number</label>
+                                        <input type="text" id="phoneNumber" name="phoneNumber" readonly>
+                                        <small class="text-muted" data-i18n="phoneNumberReadOnly">Phone number cannot be changed</small>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary" data-i18n="updateProfile">Update Profile</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Change Password -->
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 data-i18n="changePassword">Change Password</h3>
+                            </div>
+                            <div class="card-body">
+                                <!-- Alert for success/errors (hidden by default) -->
+                                <div id="password-alert" class="alert hidden">
+                                    <span id="password-message"></span>
+                                </div>
+                                
+                                <form id="password-form">
+                                    <div class="form-group">
+                                        <label for="currentPassword" data-i18n="currentPassword">Current Password</label>
+                                        <input type="password" id="currentPassword" name="currentPassword" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="newPassword" data-i18n="newPassword">New Password</label>
+                                        <input type="password" id="newPassword" name="newPassword" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="confirmPassword" data-i18n="confirmPassword">Confirm Password</label>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary" data-i18n="changePassword">Change Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/js/translations.js"></script>
+    <script src="/js/language.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (!token) {
+                // Redirect to login if not logged in
+                window.location.href = '/login';
+                return;
+            }
+            
+            // Set user name
+            const userNameElement = document.getElementById('user-name');
+            if (user.fullName) {
+                userNameElement.textContent = user.fullName;
+            }
+            
+            // Toggle sidebar on mobile
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const dashboardContainer = document.querySelector('.dashboard-container');
+            
+            sidebarToggle.addEventListener('click', () => {
+                dashboardContainer.classList.toggle('sidebar-collapsed');
+            });
+            
+            // Logout functionality
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = '/login';
+            });
+            
+            // Load user profile data
+            loadUserProfile();
+            
+            // Profile form submission
+            const profileForm = document.getElementById('profile-form');
+            const profileAlert = document.getElementById('profile-alert');
+            const profileMessage = document.getElementById('profile-message');
+            
+            profileForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const fullName = document.getElementById('fullName').value;
+                
+                try {
+                    const response = await fetch('/api/users/profile', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ fullName })
+                    });
+                    
+                    if (response.ok) {
+                        // Update local storage user data
+                        const updatedUser = { ...user, fullName };
+                        localStorage.setItem('user', JSON.stringify(updatedUser));
+                        
+                        // Update UI
+                        userNameElement.textContent = fullName;
+                        
+                        // Show success message
+                        profileAlert.className = 'alert alert-success';
+                        profileMessage.textContent = t('profileUpdated');
+                        profileAlert.classList.remove('hidden');
+                        
+                        // Hide message after 3 seconds
+                        setTimeout(() => {
+                            profileAlert.classList.add('hidden');
+                        }, 3000);
+                    } else {
+                        const data = await response.json();
+                        profileAlert.className = 'alert alert-error';
+                        profileMessage.textContent = data.message || t('serverError');
+                        profileAlert.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Error updating profile:', error);
+                    profileAlert.className = 'alert alert-error';
+                    profileMessage.textContent = t('networkError');
+                    profileAlert.classList.remove('hidden');
+                }
+            });
+            
+            // Password form submission
+            const passwordForm = document.getElementById('password-form');
+            const passwordAlert = document.getElementById('password-alert');
+            const passwordMessage = document.getElementById('password-message');
+            
+            passwordForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                // Validate passwords match
+                if (newPassword !== confirmPassword) {
+                    passwordAlert.className = 'alert alert-error';
+                    passwordMessage.textContent = t('passwordMismatch');
+                    passwordAlert.classList.remove('hidden');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/api/users/change-password', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ currentPassword, newPassword })
+                    });
+                    
+                    if (response.ok) {
+                        // Reset form
+                        passwordForm.reset();
+                        
+                        // Show success message
+                        passwordAlert.className = 'alert alert-success';
+                        passwordMessage.textContent = t('passwordChanged');
+                        passwordAlert.classList.remove('hidden');
+                        
+                        // Hide message after 3 seconds
+                        setTimeout(() => {
+                            passwordAlert.classList.add('hidden');
+                        }, 3000);
+                    } else {
+                        const data = await response.json();
+                        passwordAlert.className = 'alert alert-error';
+                        passwordMessage.textContent = data.message || t('serverError');
+                        passwordAlert.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Error changing password:', error);
+                    passwordAlert.className = 'alert alert-error';
+                    passwordMessage.textContent = t('networkError');
+                    passwordAlert.classList.remove('hidden');
+                }
+            });
+        });
+        
+        async function loadUserProfile() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            // Set initial values from local storage
+            document.getElementById('fullName').value = user.fullName || '';
+            document.getElementById('phoneNumber').value = user.phoneNumber || '';
+            
+            try {
+                // Fetch latest user data from API
+                const response = await fetch('/api/users/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Update form fields
+                    document.getElementById('fullName').value = data.fullName || '';
+                    document.getElementById('phoneNumber').value = data.phoneNumber || '';
+                    
+                    // Update local storage
+                    localStorage.setItem('user', JSON.stringify(data));
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        }
+    </script>
+</body>
+</html>

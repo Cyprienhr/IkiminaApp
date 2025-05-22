@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikimina - Community Savings Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+    <div class="landing-container">
+        <!-- Header -->
+        <header class="landing-header">
+            <div class="logo">Ikimina</div>
+            <nav class="landing-nav">
+                <ul>
+                    <li><a href="#features" class="translatable" data-key="features">Features</a></li>
+                    <li><a href="#how-it-works" class="translatable" data-key="how_it_works">How It Works</a></li>
+                    <li><a href="#about" class="translatable" data-key="about">About</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="language-selector">
+                    <select id="languageSelector">
+                        <option value="en">English</option>
+                        <option value="rw">Kinyarwanda</option>
+                    </select>
+                </div>
+                <a href="login.html" class="btn btn-outline translatable" data-key="login">Login</a>
+                <a href="register.html" class="btn btn-primary translatable" data-key="register">Register</a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="translatable" data-key="hero_title">Digitize Your Community Savings</h1>
+                <p class="translatable" data-key="hero_subtitle">Ikimina brings the traditional Rwandan community savings system to the digital age, making it easier to manage and track your group savings.</p>
+                <div class="hero-actions">
+                    <a href="register.html" class="btn btn-primary btn-lg translatable" data-key="get_started">Get Started</a>
+                    <a href="#how-it-works" class="btn btn-outline btn-lg translatable" data-key="learn_more">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="images/hero-image.svg" alt="Ikimina Platform" class="hero-img">
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <h2 class="translatable" data-key="features">Features</h2>
+                <p class="translatable" data-key="features_subtitle">Everything you need to manage your community savings groups</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="translatable" data-key="group_management">Group Management</h3>
+                    <p class="translatable" data-key="group_management_desc">Create and manage multiple savings groups with different members and contribution amounts.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="translatable" data-key="payment_tracking">Payment Tracking</h3>
+                    <p class="translatable" data-key="payment_tracking_desc">Track all contributions and payments with detailed history and verification.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="translatable" data-key="notifications">Notifications</h3>
+                    <p class="translatable" data-key="notifications_desc">Get timely reminders for upcoming payments and group activities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="translatable" data-key="secure_platform">Secure Platform</h3>
+                    <p class="translatable" data-key="secure_platform_desc">Your data is protected with modern security practices and verification systems.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works-section">
+            <div class="section-header">
+                <h2 class="translatable" data-key="how_it_works">How It Works</h2>
+                <p class="translatable" data-key="how_it_works_subtitle">Simple steps to start your digital savings journey</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="translatable" data-key="create_account">Create an Account</h3>
+                    <p class="translatable" data-key="create_account_desc">Sign up with your phone number and create your profile.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="translatable" data-key="join_create_group">Join or Create a Group</h3>
+                    <p class="translatable" data-key="join_create_group_desc">Start your own savings group or join an existing one.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="translatable" data-key="make_contributions">Make Contributions</h3>
+                    <p class="translatable" data-key="make_contributions_desc">Contribute to your group according to the agreed schedule.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="translatable" data-key="track_progress">Track Progress</h3>
+                    <p class="translatable" data-key="track_progress_desc">Monitor your savings and group activities through the dashboard.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="section-header">
+                <h2 class="translatable" data-key="about">About Ikimina</h2>
+                <p class="translatable" data-key="about_subtitle">Preserving tradition through technology</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="translatable" data-key="about_desc_1">Ikimina is inspired by the traditional Rwandan community savings system where groups of friends, family, or colleagues pool their money together to help each member achieve financial goals.</p>
+                    <p class="translatable" data-key="about_desc_2">Our platform digitizes this time-honored practice, making it more accessible, transparent, and efficient while preserving the community spirit that makes it special.</p>
+                    <p class="translatable" data-key="about_desc_3">We believe in financial inclusion and empowerment through community support.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/about-image.svg" alt="About Ikimina" class="about-img">
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="translatable" data-key="ready_to_start">Ready to Start Your Savings Journey?</h2>
+            <p class="translatable" data-key="join_today">Join thousands of users who are already managing their community savings with Ikimina.</p>
+            <a href="register.html" class="btn btn-primary btn-lg translatable" data-key="sign_up_now">Sign Up Now</a>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Ikimina</h2>
+                    <p class="translatable" data-key="footer_tagline">Digital Community Savings</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3 class="translatable" data-key="platform">Platform</h3>
+                        <ul>
+                            <li><a href="#features" class="translatable" data-key="features">Features</a></li>
+                            <li><a href="#how-it-works" class="translatable" data-key="how_it_works">How It Works</a></li>
+                            <li><a href="#about" class="translatable" data-key="about">About</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links-column">
+                        <h3 class="translatable" data-key="legal">Legal</h3>
+                        <ul>
+                            <li><a href="#" class="translatable" data-key="terms">Terms of Service</a></li>
+                            <li><a href="#" class="translatable" data-key="privacy">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links-column">
+                        <h3 class="translatable" data-key="contact">Contact</h3>
+                        <ul>
+                            <li><a href="mailto:support@ikimina.com">support@ikimina.com</a></li>
+                            <li><a href="tel:+250780000000">+250 780 000 000</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ikimina. <span class="translatable" data-key="all_rights_reserved">All rights reserved.</span></p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/translations.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/landing.js"></script>
+</body>
+</html>
